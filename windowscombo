@@ -1,0 +1,49 @@
+#include "DigiKeyboard.h"
+
+#define KEY_UP_ARROW   0x52
+#define KEY_DOWN_ARROW   0x51
+#define KEY_LEFT_ARROW   0x50
+#define KEY_RIGHT_ARROW   0x4F
+//#define KEY_MODIFIER_LEFT_GUI 0x08
+
+void setup() {
+}
+
+void loop() {
+
+ pinMode(1, OUTPUT); //LED
+ 
+ DigiKeyboard.update();
+ DigiKeyboard.delay(2000);
+ DigiKeyboard.sendKeyStroke(0); //this is generally not necessary but with some older systems it seems to prevent missing the first character after a delay
+ 
+ switch (random(160)) {
+   case 0: // Minimize all windows
+   digitalWrite(1, HIGH); //LED an
+   DigiKeyboard.sendKeyStroke(KEY_M, MOD_GUI_LEFT);
+   DigiKeyboard.delay(2000);
+   digitalWrite(1, LOW); //LED aus
+   break;
+   case 1: // Lock screen
+   digitalWrite(1, HIGH); //LED an
+   DigiKeyboard.sendKeyStroke(KEY_L, MOD_GUI_LEFT);
+   DigiKeyboard.delay(2000);
+   digitalWrite(1, LOW); //LED aus
+   break;
+   case 2: // Minimize current window
+   digitalWrite(1, HIGH); //LED an
+   DigiKeyboard.sendKeyStroke(KEY_DOWN_ARROW, MOD_GUI_LEFT);
+   DigiKeyboard.delay(2000);
+   digitalWrite(1, LOW); //LED aus
+   break;
+   case 3: // Flip screen
+   digitalWrite(1, HIGH); //LED an
+   DigiKeyboard.sendKeyStroke(KEY_DOWN_ARROW, MOD_CONTROL_LEFT + MOD_ALT_LEFT);
+   DigiKeyboard.delay(2000);
+   digitalWrite(1, LOW); //LED aus
+   break;
+ default:
+ break;
+ }  
+ delay(6000);
+}
